@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import useWindowSize from "../utils/useWindowSize"
 
 import {
     faDice,
@@ -7,10 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function LogTable({ data }) {
-    const { width } = useWindowSize()
-
-    console.log(width);
-
     return (
         <div className="table-responsive">
 
