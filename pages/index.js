@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 import LogTable from './logTable'
+import match from './match'
 
 export default function Home() {
   const [defender, setDefender] = useState(1)
@@ -10,14 +11,11 @@ export default function Home() {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
-  const apiMatch = async () => {
+  const apiMatch = () => {
     setLoading(true)
-    await fetch(`api/match?defenderTotal=${defender}&attackerTotal=${attacker}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data)
-        setLoading(false)
-      })
+    const requestData = match(defender, attacker)
+    setData(requestData)
+    setLoading(false)
 
     console.log(data)
   }
