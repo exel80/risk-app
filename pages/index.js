@@ -8,7 +8,6 @@ export default function Home() {
   const [attacker, setAttacker] = useState(1)
 
   const [data, setData] = useState(null)
-  const [isLoading, setLoading] = useState(false)
 
   function match(defenderTotal, attackerTotal) {
     let defenderCurr = defenderTotal
@@ -38,24 +37,35 @@ export default function Home() {
     }
 
     while (attackerCurr > 0 && defenderCurr > 0) {
+      // How many dice attacker/defender is allowed to use
       let def = defenderCurr >= 2 ? 2 : defenderCurr
       let att = attackerCurr >= 3 ? 3 : attackerCurr
 
+      // Initialize fallen troops count from each side
+      let fallenDef = 0
+      let fallenAtt = 0
+
+      // Roll the dice(s)
       let defRolls = diceRoll(def)
       console.log(`Defender rolled ${defRolls}`)
 
       let attRolls = diceRoll(att)
       console.log(`Attacker rolled ${attRolls}`)
 
+      // Main log for the match
+      matchLog.matches.push(_log(defRolls, attRolls))
+
       // If defender has same or higher number, attacker losses one troop.
       if (defRolls[0] >= attRolls[0]) {
         console.log(`[0] Defender won (D ${defRolls[0]} >= A ${attRolls[0]})`)
         attackerCurr--
+        fallenAtt++
       }
       // If attacker rolled higher number then defender, defender losses one troop.
       else if (defRolls[0] < attRolls[0]) {
         console.log(`[0] Attacker won (D ${defRolls[0]} >= A ${attRolls[0]})`)
         defenderCurr--
+        fallenDef++
       }
 
       // If defender has more then one troop (on defend mode)
@@ -64,26 +74,29 @@ export default function Home() {
         if (defRolls[1] >= attRolls[1]) {
           console.log(`[1] Defender won (D ${defRolls[1]} >= A ${attRolls[1]})`)
           attackerCurr--
+          fallenAtt++
         }
         // If attacker rolled higher number then defender, defender losses one troop.
         else if (defRolls[1] < attRolls[1]) {
           console.log(`[1] Attacker won (D ${defRolls[1]} >= A ${attRolls[1]})`)
           defenderCurr--
+          fallenDef++
         }
       }
 
-      matchLog.matches.push(_log(defRolls, attRolls))
+      // Log fallen troops
+      matchLog.matches[id - 1].defender.fallen = fallenDef
+      matchLog.matches[id - 1].attacker.fallen = fallenAtt
     }
-
+    // Status: 0 = defender won || 1 = attacker won
     matchLog.status = defenderCurr > 0 ? 0 : 1
+
     return matchLog
   }
 
   const apiMatch = () => {
-    setLoading(true)
     const requestData = match(defender, attacker)
     setData(requestData)
-    setLoading(false)
 
     console.log(data)
   }
@@ -101,7 +114,7 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className="container-fluid bg-dark">
       <Head>
         <title>Risk battle simulator</title>
         <meta name="description" content="Risk board game battle simulator" />
@@ -109,39 +122,56 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <div className="row pb-3">
         <h1 className={styles.title}>
           Click to <span>Risk!</span>
         </h1>
+      </div>
 
-        <div className={styles.grid}>
-          <div className={styles.card}>
-            <h2>Defender</h2>
-            <p>
-              <label htmlFor={'defender'}>Defender troop amount</label>
-              <input type={'number'} id={'defender'} name={'defender'} value={defender} onChange={handleDefChange} min={1} max={1000} />
-            </p>
+      <div className="row justify-content-md-center">
+        <div className="col col-lg-3">
+          <div className="card text-white bg-primary">
+            <h2 className="card-header">Defender</h2>
+            <div className="card-body">
+              <p className="card-text">
+                <label htmlFor={'defender'}>Defender troop amount</label><br />
+                <input type={'number'} id={'defender'} name={'defender'} style={{ width: "100%" }} value={defender} onChange={handleDefChange} min={1} max={1000} />
+              </p>
+            </div>
           </div>
-
-          <div className={styles.card}>
-            <h2>Attacker</h2>
-            <p>
-              <label htmlFor={'attacker'}>Attacker troop amount</label>
-              <input type={'number'} id={'attacker'} name={'attacker'} value={attacker} onChange={handleAttChange} min={1} max={1000} />
-            </p>
-          </div>
-
-          <button onClick={handleClick}>FIGHT!</button>
-
-          <div className={styles.card} style={{ width: '100%', maxWidth: '100%' }}>
-            {isLoading
-              ? 'Loading...'
-              : data && <LogTable data={data}></LogTable>
-            }
-          </div>
-
         </div>
-      </main>
+
+        <div className="col col-lg-3">
+          <div className="card text-white bg-danger">
+            <h2 className="card-header">Attacker</h2>
+            <div className="card-body">
+              <p className='card-text'>
+                <label htmlFor={'attacker'}>Attacker troop amount</label><br />
+                <input type={'number'} id={'attacker'} name={'attacker'} style={{ width: "100%" }} value={attacker} onChange={handleAttChange} min={1} max={1000} />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center p-3">
+        <div className="col col-md-auto">
+          <button className="btn btn-success" style={{ width: '100%' }} onClick={handleClick}>FIGHT!</button>
+        </div>
+      </div>
+
+      {
+        data && (
+          <div className="row justify-content-md-center">
+            <div className="col-lg-auto">
+              <div className="card bg-secondary">
+                <LogTable data={data}></LogTable>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
     </div>
   )
 }
