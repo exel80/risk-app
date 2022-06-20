@@ -68,12 +68,10 @@ export default function Home() {
           <button onClick={handleClick}>FIGHT!</button>
 
           <div className={styles.card} style={{ width: '100%', maxWidth: '100%' }}>
-            <p>
-              {isLoading 
-              ? 'Loading...' 
+            {isLoading
+              ? 'Loading...'
               : data && <LogTable data={data}></LogTable>
-              }
-            </p>
+            }
           </div>
 
         </div>
