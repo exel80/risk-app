@@ -4,9 +4,15 @@ import styles from '../styles/Home.module.css'
 import LogTable from './logTable'
 
 export default function Home() {
+  // Defender/Attacker unit amounts
   const [defender, setDefender] = useState(1)
   const [attacker, setAttacker] = useState(1)
 
+  // Defender/Attacker unit per attack amounts
+  const [defenderPAtt, setDefenderPAtt] = useState(1)
+  const [attackerPAtt, setAttackerPAtt] = useState(1)
+
+  // Match raw data
   const [data, setData] = useState(null)
 
   function match(defenderTotal, attackerTotal) {
@@ -99,22 +105,38 @@ export default function Home() {
     console.log(data)
   }
 
-  function handleDefChange(e) {
-    let value = parseInt(e.target.value)
-
+  // Validate that user does not try but silly unit numbers
+  function unitValidator(value) {
     if (value > 0 && value <= 1000)
-      setDefender(value)
+      return value
     else
-      setDefender(1)
+      return 1
   }
 
-  function handleAttChange(e) {
-    let value = parseInt(e.target.value)
+  function handleChange(e) {
+    switch (e.target.name) {
+      case 'defenderUnitAmount':
+        setDefender(unitValidator(parseInt(e.target.value)))
+        break
 
-    if (value > 0 && value <= 1000)
-      setAttacker(value)
-    else
-      setDefender(1)
+      case 'attackerUnitAmount':
+        setAttacker(unitValidator(parseInt(e.target.value)))
+        break
+
+      case 'defenderUnitPerAttack':
+        if (['x1', 'x2', 'x3'].includes(e.target.value))
+          setDefenderPAtt(e.target.value)
+        break
+
+      case 'attackerUnitPerAttack':
+        if (['x1', 'x2', 'x3'].includes(e.target.value))
+          setAttackerPAtt(e.target.value)
+        break
+
+      default:
+        console.log(e.target.name, "? What are you doing ?")
+        break;
+    }
   }
 
   return (
@@ -138,8 +160,12 @@ export default function Home() {
             <h2 className="card-header">Defender</h2>
             <div className="card-body">
               <p className="card-text">
-                <label htmlFor={'defender'}>Defender troop amount</label><br />
-                <input type={'number'} id={'defender'} name={'defender'} style={{ width: "100%" }} value={defender} onChange={handleDefChange} min={1} max={1000} />
+                <label htmlFor='defender'>Defender troop amount</label><br />
+                <input className="w-75 d-inline" type='number' id='defender' name='defenderUnitAmount' value={defender} onChange={handleChange} min={1} max={1000} />
+                <select className="form-control form-control-sm d-inline w-auto" name="defenderUnitPerAttack" onChange={handleChange}>
+                  <option>x2</option>
+                  <option>x1</option>
+                </select>
               </p>
             </div>
           </div>
@@ -150,8 +176,13 @@ export default function Home() {
             <h2 className="card-header">Attacker</h2>
             <div className="card-body">
               <p className='card-text'>
-                <label htmlFor={'attacker'}>Attacker troop amount</label><br />
-                <input type={'number'} id={'attacker'} name={'attacker'} style={{ width: "100%" }} value={attacker} onChange={handleAttChange} min={1} max={1000} />
+                <label htmlFor='attacker'>Attacker troop amount</label><br />
+                <input className="w-75 d-inline" type='number' id='attacker' name='attackerUnitAmount' value={attacker} onChange={handleChange} min={1} max={1000} />
+                <select className="form-control form-control-sm d-inline w-auto" name="attackerUnitPerAttack" onChange={handleChange}>
+                  <option>x3</option>
+                  <option>x2</option>
+                  <option>x1</option>
+                </select>
               </p>
             </div>
           </div>
