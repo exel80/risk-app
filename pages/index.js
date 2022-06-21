@@ -94,23 +94,27 @@ export default function Home() {
     return matchLog
   }
 
-  const apiMatch = () => {
-    const requestData = match(defender, attacker)
-    setData(requestData)
-
+  function handleClick() {
+    setData(match(defender, attacker))
     console.log(data)
   }
 
-  function handleClick() {
-    apiMatch()
-  }
-
   function handleDefChange(e) {
-    setDefender(parseInt(e.target.value))
+    let value = parseInt(e.target.value)
+
+    if (value > 0 && value <= 1000)
+      setDefender(value)
+    else
+      setDefender(1)
   }
 
   function handleAttChange(e) {
-    setAttacker(parseInt(e.target.value))
+    let value = parseInt(e.target.value)
+
+    if (value > 0 && value <= 1000)
+      setAttacker(value)
+    else
+      setDefender(1)
   }
 
   return (
