@@ -9,8 +9,8 @@ export default function Home() {
   const [attacker, setAttacker] = useState(1)
 
   // Defender/Attacker unit per attack amounts
-  const [defenderPAtt, setDefenderPAtt] = useState(1)
-  const [attackerPAtt, setAttackerPAtt] = useState(1)
+  const [defenderPAtt, setDefenderPAtt] = useState('x2')
+  const [attackerPAtt, setAttackerPAtt] = useState('x3')
 
   // Match raw data
   const [data, setData] = useState(null)
