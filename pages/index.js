@@ -44,8 +44,20 @@ export default function Home() {
 
     while (attackerCurr > 0 && defenderCurr > 0) {
       // How many dice attacker/defender is allowed to use
-      let def = defenderCurr >= 2 ? 2 : defenderCurr
-      let att = attackerCurr >= 3 ? 3 : attackerCurr
+      // Also let user customize how many dice (unit) s/he uses per round
+      let def
+      if (defenderPAtt === 'x2')
+        def = defenderCurr >= 2 ? 2 : defenderCurr
+      else
+        def = 1
+
+      let att
+      if (attackerPAtt == 'x1')
+        att = 1
+      else if (attackerPAtt == 'x2')
+        att = attackerCurr >= 2 ? 2 : attackerCurr
+      else
+        att = attackerCurr >= 3 ? 3 : attackerCurr
 
       // Initialize fallen troops count from each side
       let fallenDef = 0
