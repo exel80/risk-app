@@ -112,11 +112,6 @@ export default function Home() {
     return matchLog
   }
 
-  function handleClick() {
-    setData(match(defender, attacker))
-    console.log(data)
-  }
-
   // Validate that user does not try but silly unit numbers
   function unitValidator(value) {
     if (value > 0 && value <= 1000)
@@ -125,14 +120,22 @@ export default function Home() {
       return 1
   }
 
+  function handleClick() {
+    let def = unitValidator(defender)
+    let att = unitValidator(attacker)
+
+    setData(match(def, att))
+    console.log(data)
+  }
+
   function handleChange(e) {
     switch (e.target.name) {
       case 'defenderUnitAmount':
-        setDefender(unitValidator(parseInt(e.target.value)))
+        setDefender(parseInt(e.target.value))
         break
 
       case 'attackerUnitAmount':
-        setAttacker(unitValidator(parseInt(e.target.value)))
+        setAttacker(parseInt(e.target.value))
         break
 
       case 'defenderUnitPerAttack':
