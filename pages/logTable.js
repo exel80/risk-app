@@ -9,7 +9,7 @@ export default function LogTable({ data }) {
     return (
         <div className="table-responsive">
 
-            <div className="card-body text-center" style={{ color: "white" }}>
+            <div className="card-body text-center text-white">
                 <h1 className={`display-3 ${data?.status == 0 ? 'text-primary' : 'text-danger'}`} style={{ textShadow: `2px 2px 5px ${data?.status == 0 ? "darkblue" : "darkred"}` }}> {data?.status == 0 ? 'DEFENDER WON!' : 'ATTACKER WON!'} </h1>
                 <span style={{ textShadow: "2px 2px 5px black" }}>
                     {
@@ -20,7 +20,7 @@ export default function LogTable({ data }) {
                 </span>
             </div>
 
-            <table className="table table-sm table-dark table-striped" style={{ margin: "0" }}>
+            <table className="table table-sm table-dark table-striped m-0">
                 <thead>
                     <tr>
                         <th>Defender</th>
