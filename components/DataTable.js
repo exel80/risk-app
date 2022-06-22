@@ -5,7 +5,7 @@ import {
     faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function LogTable({ data }) {
+export default function DataTable({ data }) {
     return (
         <div className="table-responsive">
 
