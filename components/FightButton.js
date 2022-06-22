@@ -37,9 +37,9 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
                 def = 1
 
             let att
-            if (attackerPAtt == 'x1')
+            if (attackerPAtt === 'x1')
                 att = 1
-            else if (attackerPAtt == 'x2')
+            else if (attackerPAtt === 'x2')
                 att = attackerCurr >= 2 ? 2 : attackerCurr
             else
                 att = attackerCurr >= 3 ? 3 : attackerCurr
