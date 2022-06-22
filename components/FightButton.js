@@ -1,4 +1,4 @@
-export default function FightButton({defender, attacker, defenderPAtt, attackerPAtt, setData}) {
+export default function FightButton({ defender, attacker, defenderPAtt, attackerPAtt, setData }) {
 
     function match(defenderTotal, attackerTotal) {
         let defenderCurr = defenderTotal
@@ -116,10 +116,6 @@ export default function FightButton({defender, attacker, defenderPAtt, attackerP
     }
 
     return (
-        <div className="row justify-content-md-center p-3">
-            <div className="col col-md-auto">
-                <button className="btn btn-success w-100" onClick={handleClick}>FIGHT!</button>
-            </div>
-        </div>
+        <button className="btn btn-success w-100" onClick={handleClick}>FIGHT!</button>
     )
 }
