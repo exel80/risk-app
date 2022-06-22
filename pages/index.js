@@ -27,7 +27,7 @@ export default function Home() {
         break
 
       case 'defenderUnitPerAttack':
-        if (['x1', 'x2', 'x3'].includes(e.target.value))
+        if (['x1', 'x2'].includes(e.target.value))
           setDefenderPAtt(e.target.value)
         break
 
@@ -92,26 +92,23 @@ export default function Home() {
         </div>
       </div>
 
-      <FightButton
-        defender={defender}
-        attacker={attacker}
-        defenderPAtt={defenderPAtt}
-        attackerPAtt={attackerPAtt}
-        setData={setData}
-      />
-      {/* <div className="row justify-content-md-center p-3">
+      <div className="row justify-content-md-center p-3">
         <div className="col col-md-auto">
-          <button className="btn btn-success" style={{ width: '100%' }} onClick={handleClick}>FIGHT!</button>
+          <FightButton
+            defender={defender}
+            attacker={attacker}
+            defenderPAtt={defenderPAtt}
+            attackerPAtt={attackerPAtt}
+            setData={setData}
+          />
         </div>
-      </div> */}
+      </div>
 
       {
         data && (
           <div className="row justify-content-md-center">
             <div className="col-lg-auto">
-              <div className="card bg-secondary">
                 <DataTable data={data} />
-              </div>
             </div>
           </div>
         )
