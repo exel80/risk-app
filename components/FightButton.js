@@ -139,7 +139,7 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
     setData(data)
     isLoading(false)
 
-    console.log(data)
+    // console.log(data)
   }
 
   return (
