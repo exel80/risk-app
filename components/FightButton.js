@@ -104,10 +104,7 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
     }
 
     function unitValidator(value) {
-        if (value > 0 && value <= 1000)
-            return value
-        else
-            return 1
+        return value > 0 && value <= 1000 ? value : 1
     }
 
     function handleClick() {
