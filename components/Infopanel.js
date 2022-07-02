@@ -1,4 +1,6 @@
 export default function Infopanel({ data }) {
+    const roundAmount = 10000
+    
     let defWinChance
     let attWinChance
 
@@ -8,10 +10,10 @@ export default function Infopanel({ data }) {
             return prevVal + (elem === 0 ? 1 : 0)
         })
 
-    attWinChance = 1000 > defWinChance ? 1000 - defWinChance : defWinChance - 1000
+    attWinChance = roundAmount > defWinChance ? roundAmount - defWinChance : defWinChance - roundAmount
     
-    defWinChance = (defWinChance / 1000) * 100
-    attWinChance = (attWinChance / 1000) * 100
+    defWinChance = (defWinChance / roundAmount) * 100
+    attWinChance = (attWinChance / roundAmount) * 100
 
 
     return (

@@ -132,14 +132,14 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
     let data = []
     data = [match(def, att)]
 
-    for (let index = 1; index < 1000; index++) {
+    for (let index = 1; index < 10000; index++) {
       data = [...data, match(def, att, true)]
     }
 
     setData(data)
     isLoading(false)
 
-    // console.log(data)
+    console.log(data)
   }
 
   return (
