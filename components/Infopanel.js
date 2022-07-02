@@ -1,6 +1,6 @@
+import { roundAmount } from "./FightButton"
+
 export default function Infopanel({ data }) {
-    const roundAmount = 10000
-    
     let defWinChance
     let attWinChance
 

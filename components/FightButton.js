@@ -1,5 +1,7 @@
 import Alea from 'alea'
 
+export const roundAmount = 10000
+
 export default function FightButton({ defender, attacker, defenderPAtt, attackerPAtt, setData, setLoading }) {
   let loading = false
 
@@ -132,7 +134,7 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
     let data = []
     data = [match(def, att)]
 
-    for (let index = 1; index < 10000; index++) {
+    for (let index = 1; index < roundAmount; index++) {
       data = [...data, match(def, att, true)]
     }
 
