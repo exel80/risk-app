@@ -1,14 +1,20 @@
+import Alea from 'alea'
+
 export default function FightButton({ defender, attacker, defenderPAtt, attackerPAtt, setData }) {
 
     function match(defenderTotal, attackerTotal) {
         let defenderCurr = defenderTotal
         let attackerCurr = attackerTotal
 
+        // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror#alea
+        const random = new Alea()
+
         // Status: 0 = defender won || 1 = attacker won
         // Mathces: All fight logs
         let matchLog = { status: 0, matches: [] }
         let id = 0;
 
+        // Returns base round log
         const _log = (defrolls, attrolls) => {
             id++
             return {
@@ -22,7 +28,7 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
             let rolls = []
 
             for (let index = 0; index < amount; index++)
-                rolls.push(Math.ceil(Math.random() * 6))
+                rolls.push(Math.ceil(random() * 6))
 
             return rolls.sort((a, b) => b - a)
         }
@@ -97,7 +103,6 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
         return matchLog
     }
 
-    // Validate that user does not try but silly unit numbers
     function unitValidator(value) {
         if (value > 0 && value <= 1000)
             return value
