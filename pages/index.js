@@ -15,6 +15,7 @@ export default function Home() {
 
   // Match raw data
   const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   function handleChange(e) {
     switch (e.target.name) {
@@ -49,7 +50,7 @@ export default function Home() {
         <meta name="description" content="Risk board game battle simulator" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head> 
 
       <div className="row pb-3">
         <h1 className={styles.title}>
@@ -100,6 +101,8 @@ export default function Home() {
             defenderPAtt={defenderPAtt}
             attackerPAtt={attackerPAtt}
             setData={setData}
+            loading={loading}
+            setLoading={setLoading}
           />
         </div>
       </div>
@@ -108,7 +111,7 @@ export default function Home() {
         data && (
           <div className="row justify-content-md-center">
             <div className="col-lg-auto">
-                <DataTable data={data} />
+                <DataTable dataChunk={data} />
             </div>
           </div>
         )
