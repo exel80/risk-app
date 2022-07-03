@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faDice,
@@ -7,8 +8,27 @@ import {
 import Infopanel from "./Infopanel"
 
 export default function DataTable({ dataChunk }) {
-  const data = dataChunk[0]
-  const now = new Date()
+  const [data, setData] = useState(dataChunk[0])
+
+  useEffect(() => {
+    setData(dataChunk[0])
+  }, [dataChunk])
+
+  // @Int winner: 0 = Defender || 1 = Attacker 
+  function changeData(winner) {
+    if (winner === 0) {
+      let _data = dataChunk.find(elem => elem.status === 0)
+
+      if (_data !== undefined)
+        setData(_data)
+    }
+    else if (winner === 1) {
+      let _data = dataChunk.find(elem => elem.status === 1)
+
+      if (_data !== undefined)
+        setData(_data)
+    }
+  }
 
   return (
     <div className="card bg-secondary">
@@ -26,8 +46,8 @@ export default function DataTable({ dataChunk }) {
 
       <div className="table-responsive">
 
-        <div className="position-absolute custom-white m-1" style={{right: 10}}>
-            Generated at {now.toLocaleTimeString()}
+        <div className="position-absolute custom-white m-1" style={{ right: 10 }}>
+          Generated at {data.createdAt}
         </div>
 
         <div className="card-body pb-4 position-relative text-center text-white">
@@ -39,8 +59,11 @@ export default function DataTable({ dataChunk }) {
                 : <p>Attacker lost {data?.matches[data.matches.length - 1].attacker.current - data?.matches[0].attacker.total} troop(s)</p>
             }
           </span>
-          
-          <Infopanel data={dataChunk} />
+
+          <Infopanel
+            data={dataChunk}
+            changeData={changeData}
+          />
         </div>
 
         <table className="table table-sm table-dark table-striped m-0">

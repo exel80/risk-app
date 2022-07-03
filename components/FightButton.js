@@ -10,7 +10,7 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
     let attackerCurr = attackerTotal
 
     // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror#alea
-    const random = new Alea()
+    let random = new Alea()
 
     // Status: 0 = defender won || 1 = attacker won
     // Mathces: All fight logs
@@ -70,7 +70,7 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
       clog(`Attacker rolled ${attRolls}`)
 
       // Main log for the match
-      if (!lesslog)
+    //   if (!lesslog)
         matchLog.matches.push(_log(defRolls, attRolls))
 
       // If defender has same or higher number, attacker losses one troop.
@@ -103,13 +103,14 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
       }
 
       // Log fallen troops
-      if (!lesslog) {
+    //   if (!lesslog) {
         matchLog.matches[id - 1].defender.fallen = fallenDef
         matchLog.matches[id - 1].attacker.fallen = fallenAtt
-      }
+    //   }
     }
     // Status: 0 = defender won || 1 = attacker won
     matchLog.status = defenderCurr > 0 ? 0 : 1
+    matchLog.createdAt = new Date().toLocaleTimeString()
 
     return matchLog
   }
@@ -123,7 +124,7 @@ export default function FightButton({ defender, attacker, defenderPAtt, attacker
     setLoading(bool)
   }
 
-  async function handleClick() {
+  function handleClick() {
     if (loading) return
 
     isLoading(true)
